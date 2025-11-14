@@ -47,6 +47,36 @@ document.addEventListener("DOMContentLoaded", ()=> {
         requestAnimationFrame(animate);
     }
     animate();
+
+    const canvas2=document.getElementById("particles2");
+    const ctx2=canvas2.getContext("2d");
+    canvas2.width=window.innerWidth; canvas2.height=300;
+    let particles2=[];
+    for(let i=0;i<40;i++){particles2.push({
+        x:Math.random()*canvas2.width,
+        y:Math.random()*canvas2.height,
+        vx:(Math.random()-0.5)*0.5,
+        vy:(Math.random()-0.5)*0.5
+    });}
+    function animate2(){
+        ctx2.clearRect(0,0,canvas2.width,canvas2.height);
+        particles2.forEach(p=>{
+            p.x+=p.vx; p.y+=p.vy;
+            if(p.x<0||p.x>canvas2.width)p.vx*=-1;
+            if(p.y<0||p.y>canvas2.height)p.vy*=-1;
+            ctx2.fillStyle="#4db8ff"; ctx2.beginPath(); ctx2.arc(p.x,p.y,3,0,Math.PI*2); ctx2.fill();
+            particles2.forEach(other=>{
+                let dx=p.x-other.x, dy=p.y-other.y;
+                let dist=Math.sqrt(dx*dx+dy*dy);
+                if(dist<120){
+                    ctx2.strokeStyle="rgba(77,184,255,"+(1-dist/120)+")";
+                    ctx2.beginPath(); ctx2.moveTo(p.x,p.y); ctx2.lineTo(other.x,other.y); ctx2.stroke();
+                }
+            });
+        });
+        requestAnimationFrame(animate2);
+    }
+    animate2();
 });
 
 
