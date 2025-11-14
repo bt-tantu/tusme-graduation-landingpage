@@ -1,6 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", ()=> {
-    setTimeout(()=>{ document.getElementById("loading-screen").style.display="none"; },2000);
+    setTimeout(()=>{ document.getElementById("loading-screen").style.display="none"; },1000);
 
     new Swiper('.swiper', { pagination:{el:'.swiper-pagination'}, loop:true });
 
